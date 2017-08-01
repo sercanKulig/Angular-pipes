@@ -1,37 +1,17 @@
 import { Component } from '@angular/core';
+import {ValuesService} from './values.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
+  providers: [ValuesService],
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  servers = [
-    {
-      instanceType: 'medium',
-      name: 'Production',
-      status: 'stable',
-      started: new Date(15, 1, 2017)
-    },
-    {
-      instanceType: 'large',
-      name: 'User Database',
-      status: 'stable',
-      started: new Date(15, 1, 2017)
-    },
-    {
-      instanceType: 'small',
-      name: 'Development Server',
-      status: 'offline',
-      started: new Date(15, 1, 2017)
-    },
-    {
-      instanceType: 'small',
-      name: 'Testing Environment Server',
-      status: 'stable',
-      started: new Date(15, 1, 2017)
-    }
-  ];
+
+  constructor(private valueService: ValuesService) {}
+  servers = this.valueService.getValue();
+
   filteredStatus = '';
   getStatusClasses(server: {instanceType: string, name: string, status: string, started: Date}) {
     return {
